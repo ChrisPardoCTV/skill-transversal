@@ -1,111 +1,112 @@
 ---
 name: product-roadmap
 description: >
-  Guides roadmap planning, prioritization frameworks, and outcome-based roadmap communication.
-  Trigger: When user asks to plan a roadmap, prioritize features, or communicate product direction.
+  Guía la planificación de roadmaps, marcos de priorización y comunicación de roadmap orientada a resultados (outcomes).
+  Activador: Cuando el usuario pida planificar un roadmap, priorizar funcionalidades o comunicar la dirección de producto.
 license: Apache-2.0
 metadata:
   author: gentleman-programming
-  version: "1.0"
+  version: "1.1"
+  language: es
 allowed-tools: Read, Edit, Write
 ---
 
-## When to Use
+## Cuándo Usar
 
-- Defining or reviewing a product roadmap
-- Prioritizing a backlog using a framework
-- Communicating roadmap to stakeholders
-- Choosing between Now / Next / Later or quarterly planning
+- Definir o revisar un roadmap de producto
+- Priorizar un backlog usando un framework
+- Comunicar el roadmap a stakeholders
+- Elegir entre Now / Next / Later o planificación trimestral
 
-## Critical Patterns
+## Patrones Críticos
 
-### Roadmap Types — Choose the Right One
+### Tipos de Roadmap — Elige el Correcto
 
-| Type | Best For | Avoid When |
-|------|----------|------------|
-| **Now / Next / Later** | Early-stage, uncertain scope | Stakeholders need fixed dates |
-| **Outcome-based** | Product-market fit phase | Teams need task-level detail |
-| **Quarterly (OKR-aligned)** | Scaling orgs with dependencies | Roadmap changes every 2 weeks |
-| **Feature-based** | Sales-driven orgs, enterprise | Innovation is the goal |
+| Tipo | Mejor Para | Evitar Cuando |
+|------|-------------|----------------|
+| **Now / Next / Later** | Etapa temprana, alcance incierto | Los stakeholders necesitan fechas fijas |
+| **Basado en resultados (outcomes)** | Fase de ajuste producto-mercado | Los equipos necesitan detalle a nivel de tarea |
+| **Trimestral (alineado a OKR)** | Organizaciones en escalamiento con dependencias | El roadmap cambia cada 2 semanas |
+| **Basado en features** | Organizaciones orientadas a ventas, enterprise | El objetivo es la innovación |
 
-### Prioritization Frameworks
+### Marcos de Priorización
 
-#### RICE Score
+#### Puntaje RICE
 
 ```
-RICE = (Reach × Impact × Confidence) / Effort
+RICE = (Alcance × Impacto × Confianza) / Esfuerzo
 ```
 
-| Field | Scale |
-|-------|-------|
-| Reach | # users affected per period |
-| Impact | 3=massive / 2=high / 1=medium / 0.5=low / 0.25=minimal |
-| Confidence | 100% / 80% / 50% |
-| Effort | Person-months |
+| Campo | Escala |
+|-------|--------|
+| Alcance (Reach) | # de usuarios afectados por período |
+| Impacto | 3=masivo / 2=alto / 1=medio / 0.5=bajo / 0.25=mínimo |
+| Confianza | 100% / 80% / 50% |
+| Esfuerzo | Persona-meses |
 
 #### MoSCoW
 
-| Priority | Meaning |
-|----------|---------|
-| **Must** | Non-negotiable for launch |
-| **Should** | High value, not critical path |
-| **Could** | Nice-to-have if capacity allows |
-| **Won't** | Out of scope — explicitly documented |
+| Prioridad | Significado |
+|-----------|--------------|
+| **Must (Debe)** | No negociable para el lanzamiento |
+| **Should (Debería)** | Alto valor, no está en el camino crítico |
+| **Could (Podría)** | Deseable si hay capacidad disponible |
+| **Won't (No hará)** | Fuera de alcance — documentado explícitamente |
 
-### Outcome vs Output Anti-Pattern
+### Anti-Patrón: Resultado (Outcome) vs Entregable (Output)
 
 ```
-# Output roadmap (DON'T — commits team to solutions)
-Q3: Build new dashboard
-Q4: Redesign onboarding
+# Roadmap de entregables (NO HACER — compromete al equipo con soluciones)
+Q3: Construir nuevo dashboard
+Q4: Rediseñar onboarding
 
-# Outcome roadmap (DO — commits to value delivered)
-Q3: Reduce time-to-first-value from 7 days to 2 days
-Q4: Increase activation rate from 40% to 65%
+# Roadmap de resultados (SÍ HACER — compromete a entregar valor)
+Q3: Reducir el tiempo hasta el primer valor de 7 días a 2 días
+Q4: Aumentar la tasa de activación de 40% a 65%
 ```
 
-### Stakeholder Communication Rules
+### Reglas de Comunicación con Stakeholders
 
-1. **Executives**: outcomes + business impact, no feature lists
-2. **Engineering**: epics + constraints + dependencies
-3. **Sales/CS**: timelines + what's committed vs. directional
-4. **Users**: themes + problems being solved
+1. **Ejecutivos**: resultados + impacto de negocio, sin listas de features
+2. **Ingeniería**: épicas + restricciones + dependencias
+3. **Ventas/CS**: cronogramas + qué está comprometido vs. qué es direccional
+4. **Usuarios**: temas + problemas que se están resolviendo
 
-## Code Examples
+## Ejemplos de Código
 
-### RICE Scoring Table (Markdown)
+### Tabla de Puntaje RICE (Markdown)
 
 ```markdown
-| Feature | Reach | Impact | Confidence | Effort | RICE |
-|---------|-------|--------|------------|--------|------|
+| Feature | Alcance | Impacto | Confianza | Esfuerzo | RICE |
+|---------|---------|---------|-----------|----------|------|
 | SSO Login | 5000 | 2 | 80% | 2 | 4000 |
-| Dark mode | 2000 | 0.5 | 100% | 1 | 1000 |
-| Bulk export | 800 | 3 | 50% | 3 | 400 |
+| Modo oscuro | 2000 | 0.5 | 100% | 1 | 1000 |
+| Exportación masiva | 800 | 3 | 50% | 3 | 400 |
 ```
 
-### Now / Next / Later Template
+### Plantilla Now / Next / Later
 
 ```markdown
-## Product Roadmap — [Quarter/Period]
+## Roadmap de Producto — [Trimestre/Período]
 
-### Now (current sprint/quarter)
-- **[Theme]**: [What we're building + expected outcome]
+### Now (sprint/trimestre actual)
+- **[Tema]**: [Qué estamos construyendo + resultado esperado]
 
-### Next (following quarter)
-- **[Theme]**: [What we plan to tackle + hypothesis]
+### Next (siguiente trimestre)
+- **[Tema]**: [Qué planeamos abordar + hipótesis]
 
-### Later (6+ months)
-- **[Theme]**: [Direction, subject to discovery]
+### Later (6+ meses)
+- **[Tema]**: [Dirección, sujeta a descubrimiento]
 
-> Items in "Later" are directional, not committed.
+> Los elementos en "Later" son direccionales, no comprometidos.
 ```
 
-## Commands
+## Comandos
 
 ```bash
-# No CLI commands — this skill is a planning workflow
+# Sin comandos de CLI — esta skill es un flujo de trabajo de planificación
 ```
 
-## Resources
+## Recursos
 
-- **Templates**: See [assets/](assets/) for RICE scoring and roadmap templates
+- **Plantillas**: Ver [assets/](assets/) para plantillas de puntaje RICE y de roadmap
