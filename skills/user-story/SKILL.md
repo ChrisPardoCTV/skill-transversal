@@ -1,103 +1,104 @@
 ---
 name: user-story
 description: >
-  Guides writing well-formed user stories with acceptance criteria following the INVEST principle.
-  Trigger: When user asks to write, review, or refine a user story, epic, or acceptance criteria.
+  Guía la escritura de historias de usuario bien formadas con criterios de aceptación siguiendo el principio INVEST.
+  Activador: Cuando el usuario pida escribir, revisar o refinar una historia de usuario, épica o criterios de aceptación.
 license: Apache-2.0
 metadata:
   author: gentleman-programming
-  version: "1.0"
+  version: "1.1"
+  language: es
 allowed-tools: Read, Edit, Write
 ---
 
-## When to Use
+## Cuándo Usar
 
-- User asks to write or refine a user story
-- User wants acceptance criteria for a feature
-- Reviewing stories for completeness or ambiguity
-- Splitting epics into smaller deliverable stories
+- El usuario pide escribir o refinar una historia de usuario
+- El usuario quiere criterios de aceptación para una funcionalidad
+- Revisión de historias por completitud o ambigüedad
+- División de épicas en historias más pequeñas y entregables
 
-## Critical Patterns
+## Patrones Críticos
 
-### Story Format
+### Formato de Historia
 
 ```
-As a [persona],
-I want to [action/goal],
-So that [business value/outcome].
+Como [persona],
+Quiero [acción/objetivo],
+Para [valor de negocio/resultado].
 ```
 
-### INVEST Checklist
+### Checklist INVEST
 
-| Criterion | Question to Ask |
-|-----------|-----------------|
-| **I**ndependent | Can it be delivered without depending on another story? |
-| **N**egotiable | Is the HOW open to discussion? |
-| **V**aluable | Does it deliver value to user or business? |
-| **E**stimable | Can the team estimate effort? |
-| **S**mall | Fits in one sprint? |
-| **T**estable | Can acceptance criteria be verified? |
+| Criterio | Pregunta a Hacer |
+|----------|-------------------|
+| **I**ndependiente | ¿Puede entregarse sin depender de otra historia? |
+| **N**egociable | ¿El CÓMO está abierto a discusión? |
+| **V**aliosa | ¿Entrega valor al usuario o al negocio? |
+| **E**stimable | ¿El equipo puede estimar el esfuerzo? |
+| **S**mall (Pequeña) | ¿Cabe en un sprint? |
+| **T**esteable | ¿Se pueden verificar los criterios de aceptación? |
 
-### Acceptance Criteria Format (Gherkin)
+### Formato de Criterios de Aceptación (Gherkin)
 
 ```gherkin
-Given [context/precondition]
-When [action performed]
-Then [expected outcome]
+Dado [contexto/precondición]
+Cuando [acción realizada]
+Entonces [resultado esperado]
 ```
 
-### Story Splitting Strategies
+### Estrategias de División de Historias
 
-| Pattern | When to Use |
-|---------|-------------|
-| By workflow step | Story has sequential steps A→B→C |
-| By user role | Different personas need different flows |
-| By data variation | Same action, different input types |
-| By CRUD operation | Create / Read / Update / Delete separately |
-| By happy/edge path | Core flow first, error handling after |
+| Patrón | Cuándo Usarlo |
+|--------|----------------|
+| Por paso del flujo | La historia tiene pasos secuenciales A→B→C |
+| Por rol de usuario | Distintas personas necesitan flujos diferentes |
+| Por variación de datos | Misma acción, distintos tipos de entrada |
+| Por operación CRUD | Crear / Leer / Actualizar / Eliminar por separado |
+| Por camino feliz/borde | Flujo principal primero, manejo de errores después |
 
-## Code Examples
+## Ejemplos de Código
 
-### Well-formed story
+### Historia bien formada
 
 ```markdown
-**US-042 — Filter products by category**
+**US-042 — Filtrar productos por categoría**
 
-As a **returning buyer**,
-I want to **filter the product catalog by category**,
-So that **I find relevant items faster without scrolling the entire catalog**.
+Como **comprador recurrente**,
+Quiero **filtrar el catálogo de productos por categoría**,
+Para **encontrar artículos relevantes más rápido sin recorrer todo el catálogo**.
 
-**Acceptance Criteria:**
+**Criterios de Aceptación:**
 
-Given I'm on the catalog page
-When I select "Electronics" from the category filter
-Then only products tagged as "Electronics" appear in the list
-And the active filter is visually highlighted
+Dado que estoy en la página del catálogo
+Cuando selecciono "Electrónica" en el filtro de categoría
+Entonces solo aparecen en la lista los productos etiquetados como "Electrónica"
+Y el filtro activo se resalta visualmente
 
-Given I'm on the catalog page with an active filter
-When I click "Clear filters"
-Then all products are displayed again
-And no filter is highlighted
+Dado que estoy en la página del catálogo con un filtro activo
+Cuando hago clic en "Limpiar filtros"
+Entonces se muestran todos los productos nuevamente
+Y ningún filtro queda resaltado
 
-**Definition of Done:**
-- [ ] Filter persists on browser back navigation
-- [ ] Works on mobile viewport (375px+)
-- [ ] Analytics event fired on filter apply
+**Definición de Hecho (DoD):**
+- [ ] El filtro persiste al navegar hacia atrás en el navegador
+- [ ] Funciona en viewport móvil (375px+)
+- [ ] Se dispara evento de analítica al aplicar el filtro
 ```
 
-### Poorly written story (DON'T)
+### Historia mal escrita (NO HACER)
 
 ```markdown
-# Bad: No persona, no value, no testable criteria
-As a user, I want a better search, so that it's good.
+# Mal: Sin persona, sin valor, sin criterios testeables
+Como usuario, quiero una mejor búsqueda, para que sea buena.
 ```
 
-## Commands
+## Comandos
 
 ```bash
-# No CLI commands — this skill is a writing workflow, not a code tool
+# Sin comandos de CLI — esta skill es un flujo de escritura, no una herramienta de código
 ```
 
-## Resources
+## Recursos
 
-- **Templates**: See [assets/](assets/) for story and AC templates
+- **Plantillas**: Ver [assets/](assets/) para plantillas de historias y criterios de aceptación
