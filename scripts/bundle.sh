@@ -3,12 +3,10 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SKILLS_DIR="$REPO_ROOT/skills"
-OUTPUT="$REPO_ROOT/dist/skills-bundle.md"
+DIST_DIR="$REPO_ROOT/dist"
 
 DATE=$(date '+%Y-%m-%d')
 GIT_HASH=$(git -C "$REPO_ROOT" rev-parse --short HEAD 2>/dev/null || echo "unknown")
-
-SKILL_ORDER=(user-story product-discovery product-roadmap okr-planning feature-flag)
 
 get_name() {
   grep '^name:' "$1" | head -1 | sed 's/^name: *//'
@@ -28,41 +26,73 @@ strip_frontmatter() {
     | sed 's|See \[assets/\](assets/)[^.]*\.|*(ver documentación del equipo)*|g'
 }
 
-{
-  echo "# Skills Bundle — Gentleman Programming"
-  echo "> Generado: ${DATE} · ${GIT_HASH}"
-  echo "> Fuente: https://github.com/ChrisPardoCTV/skill-transversal"
-  echo ""
-  echo "## Cómo usar este archivo"
-  echo ""
-  echo "Este archivo contiene todas las skills del equipo de producto. Subilo a tu Claude Project como **Project Knowledge** y listo — Claude las aplica automáticamente cuando detecta que estás trabajando en algo relacionado. No necesitás hacer nada más."
-  echo ""
-  echo "**Para actualizar:** cuando el equipo suba cambios, descargá la nueva versión de este archivo desde el repositorio y reemplazá el archivo anterior en tu Project Knowledge."
-  echo ""
-  echo "## Índice de Skills"
-  echo ""
-  echo "| Skill | Descripción | Se activa cuando... |"
-  echo "|-------|-------------|---------------------|"
+generate_bundle() {
+  local team="$1"
+  local team_dir="$SKILLS_DIR/$team"
+  local output_dir="$DIST_DIR/$team"
+  local output="$output_dir/skills-bundle.md"
 
-  for skill in "${SKILL_ORDER[@]}"; do
-    skill_file="$SKILLS_DIR/$skill/SKILL.md"
-    [[ -f "$skill_file" ]] || continue
-    name=$(get_name "$skill_file")
-    desc=$(get_description "$skill_file")
-    trigger=$(get_trigger "$skill_file")
-    printf "| \`%s\` | %s | %s |\n" "$name" "$desc" "$trigger"
-  done
+  [[ -d "$team_dir" ]] || return
 
-  for skill in "${SKILL_ORDER[@]}"; do
-    skill_file="$SKILLS_DIR/$skill/SKILL.md"
-    [[ -f "$skill_file" ]] || continue
-    name=$(get_name "$skill_file")
-    printf "\n\n---\n\n# Skill: %s\n\n" "$name"
-    strip_frontmatter "$skill_file"
-  done
+  local skill_dirs=()
+  while IFS= read -r d; do
+    [[ -f "$d/SKILL.md" ]] && skill_dirs+=("$d")
+  done < <(find "$team_dir" -mindepth 1 -maxdepth 1 -type d | sort)
 
-} > "$OUTPUT"
+  [[ ${#skill_dirs[@]} -eq 0 ]] && return
 
-echo "Bundle generado: $OUTPUT"
-echo "Skills incluidas: ${#SKILL_ORDER[@]}"
-echo "Tamaño: $(wc -c < "$OUTPUT" | tr -d ' ') bytes"
+  mkdir -p "$output_dir"
+
+  {
+    local team_cap
+    team_cap=$(echo "$team" | awk '{print toupper(substr($0,1,1)) substr($0,2)}')
+    echo "# Skills Bundle — ${team_cap}"
+    echo "> Equipo: $team · Generado: ${DATE} · ${GIT_HASH}"
+    echo "> Fuente: https://github.com/ChrisPardoCTV/skill-transversal"
+    echo ""
+    echo "## Cómo usar este archivo"
+    echo ""
+    echo "Subí este archivo a tu Claude Project como **Project Knowledge** y listo — Claude aplica las skills automáticamente cuando detecta el contexto. No necesitás hacer nada más."
+    echo ""
+    echo "**Para actualizar:** cuando el equipo suba cambios, reemplazá este archivo en tu Project Knowledge por la nueva versión."
+    echo ""
+    echo "## Índice de Skills"
+    echo ""
+    echo "| Skill | Descripción | Se activa cuando... |"
+    echo "|-------|-------------|---------------------|"
+
+    for skill_dir in "${skill_dirs[@]}"; do
+      local skill_file="$skill_dir/SKILL.md"
+      local name desc trigger
+      name=$(get_name "$skill_file")
+      desc=$(get_description "$skill_file")
+      trigger=$(get_trigger "$skill_file")
+      printf "| \`%s\` | %s | %s |\n" "$name" "$desc" "$trigger"
+    done
+
+    for skill_dir in "${skill_dirs[@]}"; do
+      local skill_file="$skill_dir/SKILL.md"
+      local name
+      name=$(get_name "$skill_file")
+      printf "\n\n---\n\n# Skill: %s\n\n" "$name"
+      strip_frontmatter "$skill_file"
+    done
+
+  } > "$output"
+
+  local size
+  size=$(wc -c < "$output" | tr -d ' ')
+  echo "  ✓ $team → dist/$team/skills-bundle.md (${#skill_dirs[@]} skills, ${size} bytes)"
+}
+
+echo "Generando bundles por equipo..."
+echo ""
+
+for team_dir in "$SKILLS_DIR"/*/; do
+  team=$(basename "$team_dir")
+  [[ "$team" == _* ]] && continue  # skip _tooling and other internal folders
+  generate_bundle "$team"
+done
+
+echo ""
+echo "Bundles generados en $DIST_DIR"

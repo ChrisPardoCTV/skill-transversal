@@ -82,7 +82,8 @@ fi
 echo ""
 echo "Instalando skills:"
 installed=0
-for skill_dir in "$CACHE/skills/"/*/; do
+for skill_dir in "$CACHE/skills/"/*/*/; do
+  [[ -f "$skill_dir/SKILL.md" ]] || continue
   skill_name=$(basename "$skill_dir")
   [[ "$skill_name" == "skill-sync" ]] && continue
   dest="$SKILLS_DEST/$skill_name"
@@ -101,4 +102,4 @@ echo "Usá /skill-sync list para ver las versiones instaladas."
 
 - Repo: https://github.com/ChrisPardoCTV/skill-transversal
 - Setup inicial (CLI): `bash scripts/install.sh` desde una copia local del repo
-- Para Claude.ai web: descargar `dist/skills-bundle.md` y subir a Project Knowledge
+- Para Claude.ai web: descargar `dist/{team}/skills-bundle.md` y subir al Project Knowledge del equipo

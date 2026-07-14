@@ -18,13 +18,11 @@ echo "skill-transversal — instalador de skills"
 echo "========================================="
 echo ""
 
-# Preflight: git
 if ! command -v git &>/dev/null; then
   err "git no encontrado. Instalalo primero: https://git-scm.com/downloads"
 fi
 ok "git: $(git --version)"
 
-# Preflight: Claude Code skills dir
 if [[ ! -d "$SKILLS_DIR" ]]; then
   warn "~/.claude/skills/ no existe. Creando directorio..."
   mkdir -p "$SKILLS_DIR"
@@ -46,7 +44,9 @@ echo ""
 echo "Instalando skills..."
 
 installed=0
-for skill_dir in "$CACHE_DIR/skills/"/*/; do
+# Iterate two levels deep: skills/{team}/{skill-name}/
+for skill_dir in "$CACHE_DIR/skills/"/*/*/; do
+  [[ -f "$skill_dir/SKILL.md" ]] || continue
   skill_name=$(basename "$skill_dir")
   dest="$SKILLS_DIR/$skill_name"
   mkdir -p "$dest"
