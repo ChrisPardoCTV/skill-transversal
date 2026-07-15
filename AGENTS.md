@@ -1,57 +1,77 @@
 # Agent Skills — skill-transversal
 
-Transversal skills for product teams. Load the relevant skill before tackling the associated task.
+Transversal AI skills organized by team. Each skill defines when and how Claude should behave when assisting with a specific type of task.
 
-## Product Skills
+## Skill Index
+
+### Product
+
+| Skill | Description | Version | File |
+|-------|-------------|---------|------|
+| `user-story` | Write and review user stories with INVEST criteria and Gherkin acceptance criteria | v1.2 | [SKILL.md](skills/product/user-story/SKILL.md) |
+| `product-roadmap` | Plan and prioritize roadmaps using RICE, MoSCoW and outcome-based communication | v1.1 | [SKILL.md](skills/product/product-roadmap/SKILL.md) |
+| `product-discovery` | Run discovery cycles: problem framing, hypothesis definition, and experiment design | v1.0 | [SKILL.md](skills/product/product-discovery/SKILL.md) |
+| `okr-planning` | Define and grade OKRs with outcome-focused key results and alignment checks | v1.0 | [SKILL.md](skills/product/okr-planning/SKILL.md) |
+| `feature-flag` | Manage feature flag lifecycle: naming, rollout phases, gate metrics, and cleanup | v1.0 | [SKILL.md](skills/product/feature-flag/SKILL.md) |
+
+### Design
+
+| Skill | Description | Version | File |
+|-------|-------------|---------|------|
+| `design-critique` | Run structured design critique sessions with principle-based, severity-tagged feedback | v1.1 | [SKILL.md](skills/design/design-critique/SKILL.md) |
+| `handoff-spec` | Write complete design handoff specs for engineering: states, tokens, behavior, accessibility | v1.0 | [SKILL.md](skills/design/handoff-spec/SKILL.md) |
+
+### Tooling (internal)
 
 | Skill | Description | File |
 |-------|-------------|------|
-| `user-story` | Write and review user stories with INVEST criteria and Gherkin acceptance criteria | [SKILL.md](skills/user-story/SKILL.md) |
-| `product-roadmap` | Plan and prioritize roadmaps using RICE, MoSCoW and outcome-based communication | [SKILL.md](skills/product-roadmap/SKILL.md) |
-| `product-discovery` | Run discovery cycles: problem framing, hypothesis definition, and experiment design | [SKILL.md](skills/product-discovery/SKILL.md) |
-| `okr-planning` | Define and grade OKRs with outcome-focused key results and alignment checks | [SKILL.md](skills/okr-planning/SKILL.md) |
-| `feature-flag` | Manage feature flag lifecycle: naming, rollout phases, gate metrics, and cleanup | [SKILL.md](skills/feature-flag/SKILL.md) |
-| `skill-sync` | Sync and install product team skills from GitHub to `~/.claude/skills/` (Claude Code CLI) | [SKILL.md](skills/skill-sync/SKILL.md) |
+| `skill-sync` | Sync and install skills from GitHub to `~/.claude/skills/` via `/skill-sync pull` | [SKILL.md](skills/_tooling/skill-sync/SKILL.md) |
 
 ## Distribution
 
-### Para el equipo de producto (Claude.ai web)
+### Claude.ai Teams (non-technical users)
 
-1. Descargá [`dist/skills-bundle.md`](dist/skills-bundle.md) desde este repositorio
-2. En Claude.ai → abrí tu Project → **Project Knowledge** → subí el archivo
-3. Listo — Claude las aplica automáticamente en todas las conversaciones del proyecto
+Download the bundle for your team and upload it to your Claude Project as **Project Knowledge**:
 
-**Para actualizar:** cuando el equipo suba cambios, reemplazá el archivo en Project Knowledge por la nueva versión del bundle.
+| Team | Bundle |
+|------|--------|
+| Product | [dist/product/skills-bundle.md](dist/product/skills-bundle.md) |
+| Design | [dist/design/skills-bundle.md](dist/design/skills-bundle.md) |
 
-### Para el equipo técnico (Claude Code CLI)
+Claude applies the skills automatically — no further setup needed.
 
-**Primera vez:**
+**To update:** when the team pushes changes, replace the file in your Project Knowledge with the new version.
+
+### Claude Code CLI (technical users)
+
+**First-time setup:**
 ```bash
 bash <(curl -fsSL https://raw.githubusercontent.com/ChrisPardoCTV/skill-transversal/main/scripts/install.sh)
 ```
 
-**Actualizaciones:**
+**Updates:**
 ```
 /skill-sync pull
 ```
 
-### Regenerar el bundle (después de modificar skills)
+## Maintainer Workflow
 
-```bash
-bash scripts/bundle.sh
-```
+### Adding a new skill
 
-Siempre regenerar y commitear `dist/skills-bundle.md` junto con cualquier cambio en `skills/*/SKILL.md`.
+1. Create `skills/{team}/{skill-name}/SKILL.md` following the frontmatter convention
+2. Add a row to the index above
+3. Run `/generate-skill-bundle {team}` in Claude Code to regenerate the bundle
+4. Commit: `feat(skills): add {skill-name} to {team}`
 
-## Usage
+### Adding a new team
 
-Skills are loaded by the AI agent when the user's request matches the trigger defined in each `SKILL.md` frontmatter. You can also load them explicitly by referencing the skill name.
+1. Create `skills/{team}/` directory with at least one skill
+2. Add a new section to the index above
+3. Run `/generate-skill-bundle {team}` — the bundle is created automatically at `dist/{team}/skills-bundle.md`
+4. Commit: `feat(skills): add {team} team skills`
 
-## Adding a New Skill
+### Updating an existing skill
 
-Follow the [skill-creator](https://github.com/ChrisPardoCTV/skill-creator) conventions:
-
-1. Create `skills/{skill-name}/SKILL.md` with complete frontmatter
-2. Add a row to the table above
-3. Run `bash scripts/bundle.sh` to update `dist/skills-bundle.md`
-4. Commit with `feat(skills): add {skill-name} skill`
+1. Edit the `SKILL.md` file and bump the `version` in frontmatter
+2. Run `/generate-skill-bundle {team}` to regenerate the bundle
+3. Commit: `feat(skills): update {skill-name} to vX.X`
