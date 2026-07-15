@@ -1,104 +1,113 @@
 ---
 name: user-story
 description: >
-  Guía la escritura de historias de usuario bien formadas con criterios de aceptación siguiendo el principio INVEST.
-  Activador: Cuando el usuario pida escribir, revisar o refinar una historia de usuario, épica o criterios de aceptación.
+  Guides writing well-formed user stories with acceptance criteria following the INVEST principle.
+  Trigger: When user asks to write, review, or refine a user story, epic, or acceptance criteria.
 license: Apache-2.0
 metadata:
   author: gentleman-programming
-  version: "1.1"
-  language: es
+  version: "1.2"
 allowed-tools: Read, Edit, Write
 ---
 
-## Cuándo Usar
+## When to Use
 
-- El usuario pide escribir o refinar una historia de usuario
-- El usuario quiere criterios de aceptación para una funcionalidad
-- Revisión de historias por completitud o ambigüedad
-- División de épicas en historias más pequeñas y entregables
+- User asks to write or refine a user story
+- User wants acceptance criteria for a feature
+- Reviewing stories for completeness or ambiguity
+- Splitting epics into smaller deliverable stories
 
-## Patrones Críticos
+## Critical Patterns
 
-### Formato de Historia
+### Story Format
 
 ```
-Como [persona],
-Quiero [acción/objetivo],
-Para [valor de negocio/resultado].
+As a [persona],
+I want to [action/goal],
+So that [business value/outcome].
 ```
 
-### Checklist INVEST
+### INVEST Checklist
 
-| Criterio | Pregunta a Hacer |
-|----------|-------------------|
-| **I**ndependiente | ¿Puede entregarse sin depender de otra historia? |
-| **N**egociable | ¿El CÓMO está abierto a discusión? |
-| **V**aliosa | ¿Entrega valor al usuario o al negocio? |
-| **E**stimable | ¿El equipo puede estimar el esfuerzo? |
-| **S**mall (Pequeña) | ¿Cabe en un sprint? |
-| **T**esteable | ¿Se pueden verificar los criterios de aceptación? |
+| Criterion | Question to Ask |
+|-----------|-----------------|
+| **I**ndependent | Can it be delivered without depending on another story? |
+| **N**egotiable | Is the HOW open to discussion? |
+| **V**aluable | Does it deliver value to user or business? |
+| **E**stimable | Can the team estimate effort? |
+| **S**mall | Fits in one sprint? |
+| **T**estable | Can acceptance criteria be verified? |
 
-### Formato de Criterios de Aceptación (Gherkin)
+### Acceptance Criteria Format (Gherkin)
 
 ```gherkin
-Dado [contexto/precondición]
-Cuando [acción realizada]
-Entonces [resultado esperado]
+Given [context/precondition]
+When [action performed]
+Then [expected outcome]
 ```
 
-### Estrategias de División de Historias
+### Story Splitting Strategies
 
-| Patrón | Cuándo Usarlo |
-|--------|----------------|
-| Por paso del flujo | La historia tiene pasos secuenciales A→B→C |
-| Por rol de usuario | Distintas personas necesitan flujos diferentes |
-| Por variación de datos | Misma acción, distintos tipos de entrada |
-| Por operación CRUD | Crear / Leer / Actualizar / Eliminar por separado |
-| Por camino feliz/borde | Flujo principal primero, manejo de errores después |
+| Pattern | When to Use |
+|---------|-------------|
+| By workflow step | Story has sequential steps A→B→C |
+| By user role | Different personas need different flows |
+| By data variation | Same action, different input types |
+| By CRUD operation | Create / Read / Update / Delete separately |
+| By happy/edge path | Core flow first, error handling after |
 
-## Ejemplos de Código
+### Red Flags — Stop and rewrite if you see these
 
-### Historia bien formada
+| Red Flag | Problem |
+|----------|---------|
+| "As a user..." | No specific persona — who exactly? |
+| "I want the system to..." | Output, not outcome — what does the user need to achieve? |
+| No acceptance criteria | Untestable — how does anyone know it's done? |
+| Story spans multiple sprints | Too big — split it |
+| "And also..." in the So That | Multiple values — split it |
+
+## Code Examples
+
+### Well-formed story
 
 ```markdown
-**US-042 — Filtrar productos por categoría**
+**US-042 — Filter products by category**
 
-Como **comprador recurrente**,
-Quiero **filtrar el catálogo de productos por categoría**,
-Para **encontrar artículos relevantes más rápido sin recorrer todo el catálogo**.
+As a **returning buyer**,
+I want to **filter the product catalog by category**,
+So that **I find relevant items faster without scrolling the entire catalog**.
 
-**Criterios de Aceptación:**
+**Acceptance Criteria:**
 
-Dado que estoy en la página del catálogo
-Cuando selecciono "Electrónica" en el filtro de categoría
-Entonces solo aparecen en la lista los productos etiquetados como "Electrónica"
-Y el filtro activo se resalta visualmente
+Given I'm on the catalog page
+When I select "Electronics" from the category filter
+Then only products tagged as "Electronics" appear in the list
+And the active filter is visually highlighted
 
-Dado que estoy en la página del catálogo con un filtro activo
-Cuando hago clic en "Limpiar filtros"
-Entonces se muestran todos los productos nuevamente
-Y ningún filtro queda resaltado
+Given I'm on the catalog page with an active filter
+When I click "Clear filters"
+Then all products are displayed again
+And no filter is highlighted
 
-**Definición de Hecho (DoD):**
-- [ ] El filtro persiste al navegar hacia atrás en el navegador
-- [ ] Funciona en viewport móvil (375px+)
-- [ ] Se dispara evento de analítica al aplicar el filtro
+**Definition of Done:**
+- [ ] Filter persists on browser back navigation
+- [ ] Works on mobile viewport (375px+)
+- [ ] Analytics event fired on filter apply
 ```
 
-### Historia mal escrita (NO HACER)
+### Poorly written story (DON'T)
 
 ```markdown
-# Mal: Sin persona, sin valor, sin criterios testeables
-Como usuario, quiero una mejor búsqueda, para que sea buena.
+# Bad: No persona, no value, no testable criteria
+As a user, I want a better search, so that it's good.
 ```
 
-## Comandos
+## Commands
 
 ```bash
-# Sin comandos de CLI — esta skill es un flujo de escritura, no una herramienta de código
+# No CLI commands — this skill is a writing workflow, not a code tool
 ```
 
-## Recursos
+## Resources
 
-- **Plantillas**: Ver [assets/](assets/) para plantillas de historias y criterios de aceptación
+- **Templates**: See [assets/](assets/) for story and AC templates

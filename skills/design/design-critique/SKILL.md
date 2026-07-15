@@ -6,7 +6,7 @@ description: >
 license: Apache-2.0
 metadata:
   author: gentleman-programming
-  version: "1.0"
+  version: "1.1"
 allowed-tools: Read, Write
 ---
 
@@ -67,6 +67,21 @@ Fix: wrap in a larger tap area or convert to button.
 🟢 **Suggestion — Micro-interaction**
 Adding a subtle state change on the card hover would reinforce affordance.
 ```
+
+### Self-Critique Before Sharing
+
+Run this checklist on your own work before asking for team critique:
+
+| Check | Question |
+|-------|----------|
+| Goal clarity | Can you explain the screen's purpose in one sentence? |
+| Hierarchy | Does the most important action stand out? |
+| Consistency | Did you use design system tokens — no hardcoded values? |
+| States | Did you design all states (empty, loading, error)? |
+| Mobile | Did you check at 375px? |
+| Contrast | Did you run contrast check on all text? |
+
+If you can't answer YES to all of these, it's not ready for team critique.
 
 ## Commands
 

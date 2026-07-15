@@ -1,17 +1,17 @@
 # Skills Bundle — Design
-> Equipo: design · Generado: 2026-07-14 · 0221bb4
-> Fuente: https://github.com/ChrisPardoCTV/skill-transversal
+> Team: design · Generated: 2026-07-14 · 6ef1044
+> Source: https://github.com/ChrisPardoCTV/skill-transversal
 
-## Cómo usar este archivo
+## How to use this file
 
-Subí este archivo a tu Claude Project como **Project Knowledge** y listo — Claude aplica las skills automáticamente cuando detecta el contexto. No necesitás hacer nada más.
+Upload this file to your Claude Project as **Project Knowledge** — Claude will apply the skills automatically when it detects the right context. No further action needed.
 
-**Para actualizar:** cuando el equipo suba cambios, reemplazá este archivo en tu Project Knowledge por la nueva versión.
+**To update:** when the team pushes changes, replace this file in your Project Knowledge with the new version.
 
-## Índice de Skills
+## Skills Index
 
-| Skill | Descripción | Se activa cuando... |
-|-------|-------------|---------------------|
+| Skill | Description | Activates when... |
+|-------|-------------|-------------------|
 | `design-critique` | Guides structured design critique sessions with actionable, principle-based feedback. | When user asks to review a design, give feedback on a screen, or run a critique session. |
 | `handoff-spec` | Guides writing complete design handoff specifications for engineering teams. | When user asks to document a design for handoff, write specs, or prepare designs for development. |
 
@@ -78,6 +78,21 @@ Fix: wrap in a larger tap area or convert to button.
 🟢 **Suggestion — Micro-interaction**
 Adding a subtle state change on the card hover would reinforce affordance.
 ```
+
+### Self-Critique Before Sharing
+
+Run this checklist on your own work before asking for team critique:
+
+| Check | Question |
+|-------|----------|
+| Goal clarity | Can you explain the screen's purpose in one sentence? |
+| Hierarchy | Does the most important action stand out? |
+| Consistency | Did you use design system tokens — no hardcoded values? |
+| States | Did you design all states (empty, loading, error)? |
+| Mobile | Did you check at 375px? |
+| Contrast | Did you run contrast check on all text? |
+
+If you can't answer YES to all of these, it's not ready for team critique.
 
 ## Commands
 
