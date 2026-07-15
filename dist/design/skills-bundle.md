@@ -1,5 +1,5 @@
 # Skills Bundle — Design
-> Team: design · Generated: 2026-07-14 · 6ef1044
+> Team: design · Generated: 2026-07-14 · e402d28
 > Source: https://github.com/ChrisPardoCTV/skill-transversal
 
 ## How to use this file
@@ -19,7 +19,7 @@ Upload this file to your Claude Project as **Project Knowledge** — Claude will
 ---
 
 # Skill: design-critique
-
+> v1.1
 
 ## When to Use
 
@@ -102,13 +102,13 @@ If you can't answer YES to all of these, it's not ready for team critique.
 
 ## Resources
 
-- **Templates**: See [assets/](assets/) for critique templates and checklists
+- **Templates**: *(see team documentation)*
 
 
 ---
 
 # Skill: handoff-spec
-
+> v1.0
 
 ## When to Use
 
@@ -219,4 +219,4 @@ A handoff spec is incomplete if any of these are missing:
 
 ## Resources
 
-- **Templates**: See [assets/](assets/) for handoff spec templates
+- **Templates**: *(see team documentation)*
