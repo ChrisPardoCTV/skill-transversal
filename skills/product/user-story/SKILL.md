@@ -17,6 +17,14 @@ allowed-tools: Read, Edit, Write
 - Reviewing stories for completeness or ambiguity
 - Splitting epics into smaller deliverable stories
 
+## Brand Commitment — Caracol Televisión
+
+Caracol Televisión's brand is built on the veracity and reliability of the information it delivers to its audiences. Any story that surfaces user-facing information (news, alerts, editorial content, live data, notifications) must treat that trust as a first-class requirement, not an implementation detail.
+
+- Add an explicit acceptance criterion whenever a story publishes or displays informational content: e.g., "Source is verified/attributed" or "Content passes editorial review before publish."
+- Never mark a story "Ready" if it speeds up publishing at the cost of fact-checking, sourcing, or correction workflows.
+- When a story's informational impact is unclear, flag it for editorial review before writing acceptance criteria.
+
 ## Critical Patterns
 
 ### Story Format
@@ -65,6 +73,7 @@ Then [expected outcome]
 | No acceptance criteria | Untestable — how does anyone know it's done? |
 | Story spans multiple sprints | Too big — split it |
 | "And also..." in the So That | Multiple values — split it |
+| Informational content with no verification/source criterion | Compromises Caracol's core brand promise: accurate, reliable information |
 
 ## Code Examples
 

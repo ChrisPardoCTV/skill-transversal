@@ -1,5 +1,5 @@
 # Skills Bundle — Product
-> Team: product · Generated: 2026-07-14 · e402d28
+> Team: product · Generated: 2026-07-16 · 020052b
 > Source: https://github.com/ChrisPardoCTV/skill-transversal
 
 ## How to use this file
@@ -12,340 +12,11 @@ Upload this file to your Claude Project as **Project Knowledge** — Claude will
 
 | Skill | Description | Activates when... |
 |-------|-------------|-------------------|
+| `okr-planning` | Guides OKR definition, alignment, and grading for product teams. | When user asks to define OKRs, key results, write objectives, or review OKR quality. |
+| `product-roadmap` | Guía la planificación de roadmaps, marcos de priorización y comunicación de roadmap orientada a resultados (outcomes). | Cuando el usuario pida planificar un roadmap, priorizar funcionalidades o comunicar la dirección de producto. |
+| `feature-flag` | Guides feature flag strategy: naming, lifecycle, rollout plans, and cleanup policies. | When user asks to implement a feature flag, plan a rollout, or manage flag lifecycle. |
 | `user-story` | Guides writing well-formed user stories with acceptance criteria following the INVEST principle. | When user asks to write, review, or refine a user story, epic, or acceptance criteria. |
 | `product-discovery` | Guides product discovery process: problem framing, hypothesis definition, and experiment design. | When user asks to run discovery, validate an idea, define experiments, or map user problems. |
-| `product-roadmap` | Guides roadmap planning, prioritization frameworks and outcome-based roadmap communication. | When user asks to plan a roadmap, prioritize features, or communicate product direction. |
-| `okr-planning` | Guides OKR definition, alignment, and grading for product teams. | When user asks to define OKRs, key results, write objectives, or review OKR quality. |
-| `feature-flag` | Guides feature flag strategy: naming, lifecycle, rollout plans, and cleanup policies. | When user asks to implement a feature flag, plan a rollout, or manage flag lifecycle. |
-
-
----
-
-# Skill: user-story
-> v1.2
-
-## When to Use
-
-- User asks to write or refine a user story
-- User wants acceptance criteria for a feature
-- Reviewing stories for completeness or ambiguity
-- Splitting epics into smaller deliverable stories
-
-## Critical Patterns
-
-### Story Format
-
-```
-As a [persona],
-I want to [action/goal],
-So that [business value/outcome].
-```
-
-### INVEST Checklist
-
-| Criterion | Question to Ask |
-|-----------|-----------------|
-| **I**ndependent | Can it be delivered without depending on another story? |
-| **N**egotiable | Is the HOW open to discussion? |
-| **V**aluable | Does it deliver value to user or business? |
-| **E**stimable | Can the team estimate effort? |
-| **S**mall | Fits in one sprint? |
-| **T**estable | Can acceptance criteria be verified? |
-
-### Acceptance Criteria Format (Gherkin)
-
-```gherkin
-Given [context/precondition]
-When [action performed]
-Then [expected outcome]
-```
-
-### Story Splitting Strategies
-
-| Pattern | When to Use |
-|---------|-------------|
-| By workflow step | Story has sequential steps A→B→C |
-| By user role | Different personas need different flows |
-| By data variation | Same action, different input types |
-| By CRUD operation | Create / Read / Update / Delete separately |
-| By happy/edge path | Core flow first, error handling after |
-
-### Red Flags — Stop and rewrite if you see these
-
-| Red Flag | Problem |
-|----------|---------|
-| "As a user..." | No specific persona — who exactly? |
-| "I want the system to..." | Output, not outcome — what does the user need to achieve? |
-| No acceptance criteria | Untestable — how does anyone know it's done? |
-| Story spans multiple sprints | Too big — split it |
-| "And also..." in the So That | Multiple values — split it |
-
-## Code Examples
-
-### Well-formed story
-
-```markdown
-**US-042 — Filter products by category**
-
-As a **returning buyer**,
-I want to **filter the product catalog by category**,
-So that **I find relevant items faster without scrolling the entire catalog**.
-
-**Acceptance Criteria:**
-
-Given I'm on the catalog page
-When I select "Electronics" from the category filter
-Then only products tagged as "Electronics" appear in the list
-And the active filter is visually highlighted
-
-Given I'm on the catalog page with an active filter
-When I click "Clear filters"
-Then all products are displayed again
-And no filter is highlighted
-
-**Definition of Done:**
-- [ ] Filter persists on browser back navigation
-- [ ] Works on mobile viewport (375px+)
-- [ ] Analytics event fired on filter apply
-```
-
-### Poorly written story (DON'T)
-
-```markdown
-# Bad: No persona, no value, no testable criteria
-As a user, I want a better search, so that it's good.
-```
-
-## Commands
-
-```bash
-# No CLI commands — this skill is a writing workflow, not a code tool
-```
-
-## Resources
-
-- **Templates**: *(see team documentation)*
-
-
----
-
-# Skill: product-discovery
-> v1.0
-
-## When to Use
-
-- Starting discovery on a new feature or problem space
-- Formulating hypotheses before building
-- Designing lean experiments to validate assumptions
-- Synthesizing research into actionable insights
-
-## Critical Patterns
-
-### Discovery vs. Delivery — Know Which Mode You're In
-
-| Discovery | Delivery |
-|-----------|----------|
-| Reduces uncertainty | Reduces scope |
-| Output: decisions | Output: working software |
-| Tools: interviews, prototypes, data | Tools: sprints, CI/CD |
-| "Should we build X?" | "How do we build X?" |
-
-### Problem Framing — Always Before Solutions
-
-```
-1. Problem Statement  → What is happening that shouldn't be?
-2. Who it affects     → Which persona / segment?
-3. Frequency          → How often? At what scale?
-4. Current workaround → How do users cope today?
-5. Cost of inaction   → What's the business impact of NOT solving it?
-```
-
-### Hypothesis Format
-
-```
-We believe that [doing/building X]
-for [persona]
-will result in [measurable outcome]
-because [assumption/rationale].
-
-We'll know this is true when [metric changes by Y in Z timeframe].
-```
-
-### Assumption Mapping — Risk vs. Knowability
-
-```
-High Risk + Unknown  → VALIDATE FIRST (riskiest assumptions)
-High Risk + Known    → Monitor & document
-Low Risk + Unknown   → Validate if cheap
-Low Risk + Known     → Build with confidence
-```
-
-### Experiment Types by Fidelity
-
-| Type | Cost | Signal Quality | Use When |
-|------|------|---------------|----------|
-| Concierge (manual) | Very low | High | Validating demand |
-| Wizard of Oz | Low | High | Validating UX before engineering |
-| Landing page | Low | Medium | Measuring interest |
-| Prototype (clickable) | Medium | High | Validating usability |
-| A/B test | High | Very high | Optimizing known flows |
-| MLP (Min Lovable Product) | High | Very high | Market validation at scale |
-
-## Code Examples
-
-### Discovery Brief Template
-
-```markdown
-## Discovery Brief — [Problem/Feature Name]
-
-### Problem Statement
-[What is happening that creates friction or lost value?]
-
-### Affected Persona
-[Name] — [Short description of who they are and their context]
-
-### Success Metric
-Primary: [Metric + target + timeframe]
-Secondary: [Optional metric]
-
-### Riskiest Assumption
-[The one thing that if wrong, invalidates the entire solution]
-
-### Experiment Plan
-Method: [Type of experiment]
-Duration: [Timeframe]
-Success threshold: [What result tells us to proceed?]
-Failure threshold: [What result tells us to pivot?]
-```
-
-### Hypothesis Example
-
-```markdown
-We believe that **adding a quick-apply option** (one-click from job listing)
-for **job seekers with a complete profile**
-will result in **a 20% increase in application completion rate**
-because users currently abandon the multi-step form due to friction.
-
-We'll know this is true when the 7-day application completion rate
-rises from 34% to 41% within 4 weeks of rollout.
-```
-
-## Commands
-
-```bash
-# No CLI commands — this skill is a research and design workflow
-```
-
-## Resources
-
-- **Templates**: *(see team documentation)*
-
-
----
-
-# Skill: product-roadmap
-> v1.1
-
-## Cuándo Usar
-
-- Definir o revisar un roadmap de producto
-- Priorizar un backlog usando un framework
-- Comunicar el roadmap a stakeholders
-- Elegir entre Now / Next / Later o planificación trimestral
-
-## Patrones Críticos
-
-### Tipos de Roadmap — Elige el Correcto
-
-| Tipo | Mejor Para | Evitar Cuando |
-|------|-------------|----------------|
-| **Now / Next / Later** | Etapa temprana, alcance incierto | Los stakeholders necesitan fechas fijas |
-| **Basado en resultados (outcomes)** | Fase de ajuste producto-mercado | Los equipos necesitan detalle a nivel de tarea |
-| **Trimestral (alineado a OKR)** | Organizaciones en escalamiento con dependencias | El roadmap cambia cada 2 semanas |
-| **Basado en features** | Organizaciones orientadas a ventas, enterprise | El objetivo es la innovación |
-
-### Marcos de Priorización
-
-#### Puntaje RICE
-
-```
-RICE = (Alcance × Impacto × Confianza) / Esfuerzo
-```
-
-| Campo | Escala |
-|-------|--------|
-| Alcance (Reach) | # de usuarios afectados por período |
-| Impacto | 3=masivo / 2=alto / 1=medio / 0.5=bajo / 0.25=mínimo |
-| Confianza | 100% / 80% / 50% |
-| Esfuerzo | Persona-meses |
-
-#### MoSCoW
-
-| Prioridad | Significado |
-|-----------|--------------|
-| **Must (Debe)** | No negociable para el lanzamiento |
-| **Should (Debería)** | Alto valor, no está en el camino crítico |
-| **Could (Podría)** | Deseable si hay capacidad disponible |
-| **Won't (No hará)** | Fuera de alcance — documentado explícitamente |
-
-### Anti-Patrón: Resultado (Outcome) vs Entregable (Output)
-
-```
-# Roadmap de entregables (NO HACER — compromete al equipo con soluciones)
-Q3: Construir nuevo dashboard
-Q4: Rediseñar onboarding
-
-# Roadmap de resultados (SÍ HACER — compromete a entregar valor)
-Q3: Reducir el tiempo hasta el primer valor de 7 días a 2 días
-Q4: Aumentar la tasa de activación de 40% a 65%
-```
-
-### Reglas de Comunicación con Stakeholders
-
-1. **Ejecutivos**: resultados + impacto de negocio, sin listas de features
-2. **Ingeniería**: épicas + restricciones + dependencias
-3. **Ventas/CS**: cronogramas + qué está comprometido vs. qué es direccional
-4. **Usuarios**: temas + problemas que se están resolviendo
-
-## Ejemplos de Código
-
-### Tabla de Puntaje RICE (Markdown)
-
-```markdown
-| Feature | Alcance | Impacto | Confianza | Esfuerzo | RICE |
-|---------|---------|---------|-----------|----------|------|
-| SSO Login | 5000 | 2 | 80% | 2 | 4000 |
-| Modo oscuro | 2000 | 0.5 | 100% | 1 | 1000 |
-| Exportación masiva | 800 | 3 | 50% | 3 | 400 |
-```
-
-### Plantilla Now / Next / Later
-
-```markdown
-## Roadmap de Producto — [Trimestre/Período]
-
-### Now (sprint/trimestre actual)
-- **[Tema]**: [Qué estamos construyendo + resultado esperado]
-
-### Next (siguiente trimestre)
-- **[Tema]**: [Qué planeamos abordar + hipótesis]
-
-### Later (6+ meses)
-- **[Tema]**: [Dirección, sujeta a descubrimiento]
-
-> Los elementos en "Later" son direccionales, no comprometidos.
-```
-
-## Comandos
-
-```bash
-# Sin comandos de CLI — esta skill es un flujo de trabajo de planificación
-```
-
-## Recursos
-
-- **Plantillas**: *(see team documentation)*
-
 
 ---
 
@@ -451,6 +122,120 @@ KR3: Better performance  ← not measurable
 
 - **Templates**: *(see team documentation)*
 
+---
+
+# Skill: product-roadmap
+> v1.1
+
+## Cuándo Usar
+
+- Definir o revisar un roadmap de producto
+- Priorizar un backlog usando un framework
+- Comunicar el roadmap a stakeholders
+- Elegir entre Now / Next / Later o planificación trimestral
+
+## Principio de Marca — Caracol Televisión
+
+La marca de Caracol Televisión se sostiene sobre la veracidad y fiabilidad de la información que entrega a sus audiencias. Todo roadmap debe proteger ese compromiso como una restricción de primer nivel, no como un detalle operativo.
+
+- Al puntuar Impacto en RICE para iniciativas que tocan contenido informativo (noticias, alertas, data en vivo), incluí el riesgo/beneficio sobre la confianza del usuario en la información, no solo métricas de uso.
+- Ninguna iniciativa en "Now" puede sacrificar procesos de verificación o revisión editorial para ganar velocidad de lanzamiento.
+- Ante la duda sobre si una iniciativa compromete la fiabilidad informativa, escalarla a revisión editorial antes de comprometerla en el roadmap.
+
+## Patrones Críticos
+
+### Tipos de Roadmap — Elige el Correcto
+
+| Tipo | Mejor Para | Evitar Cuando |
+|------|-------------|----------------|
+| **Now / Next / Later** | Etapa temprana, alcance incierto | Los stakeholders necesitan fechas fijas |
+| **Basado en resultados (outcomes)** | Fase de ajuste producto-mercado | Los equipos necesitan detalle a nivel de tarea |
+| **Trimestral (alineado a OKR)** | Organizaciones en escalamiento con dependencias | El roadmap cambia cada 2 semanas |
+| **Basado en features** | Organizaciones orientadas a ventas, enterprise | El objetivo es la innovación |
+
+### Marcos de Priorización
+
+#### Puntaje RICE
+
+```
+RICE = (Alcance × Impacto × Confianza) / Esfuerzo
+```
+
+| Campo | Escala |
+|-------|--------|
+| Alcance (Reach) | # de usuarios afectados por período |
+| Impacto | 3=masivo / 2=alto / 1=medio / 0.5=bajo / 0.25=mínimo |
+| Confianza | 100% / 80% / 50% |
+| Esfuerzo | Persona-meses |
+
+#### MoSCoW
+
+| Prioridad | Significado |
+|-----------|--------------|
+| **Must (Debe)** | No negociable para el lanzamiento |
+| **Should (Debería)** | Alto valor, no está en el camino crítico |
+| **Could (Podría)** | Deseable si hay capacidad disponible |
+| **Won't (No hará)** | Fuera de alcance — documentado explícitamente |
+
+> Ninguna iniciativa clasificada como **Must** puede omitir sus controles de verificación editorial cuando el entregable expone información al usuario.
+
+### Anti-Patrón: Resultado (Outcome) vs Entregable (Output)
+
+```
+# Roadmap de entregables (NO HACER — compromete al equipo con soluciones)
+Q3: Construir nuevo dashboard
+Q4: Rediseñar onboarding
+
+# Roadmap de resultados (SÍ HACER — compromete a entregar valor)
+Q3: Reducir el tiempo hasta el primer valor de 7 días a 2 días
+Q4: Aumentar la tasa de activación de 40% a 65%
+```
+
+### Reglas de Comunicación con Stakeholders
+
+1. **Ejecutivos**: resultados + impacto de negocio, sin listas de features
+2. **Ingeniería**: épicas + restricciones + dependencias
+3. **Ventas/CS**: cronogramas + qué está comprometido vs. qué es direccional
+4. **Usuarios**: temas + problemas que se están resolviendo
+
+## Ejemplos de Código
+
+### Tabla de Puntaje RICE (Markdown)
+
+```markdown
+| Feature | Alcance | Impacto | Confianza | Esfuerzo | RICE |
+|---------|---------|---------|-----------|----------|------|
+| SSO Login | 5000 | 2 | 80% | 2 | 4000 |
+| Modo oscuro | 2000 | 0.5 | 100% | 1 | 1000 |
+| Exportación masiva | 800 | 3 | 50% | 3 | 400 |
+```
+
+### Plantilla Now / Next / Later
+
+```markdown
+## Roadmap de Producto — [Trimestre/Período]
+
+### Now (sprint/trimestre actual)
+- **[Tema]**: [Qué estamos construyendo + resultado esperado]
+
+### Next (siguiente trimestre)
+- **[Tema]**: [Qué planeamos abordar + hipótesis]
+
+### Later (6+ meses)
+- **[Tema]**: [Dirección, sujeta a descubrimiento]
+
+> Los elementos en "Later" son direccionales, no comprometidos.
+```
+
+## Comandos
+
+```bash
+# Sin comandos de CLI — esta skill es un flujo de trabajo de planificación
+```
+
+## Recursos
+
+- **Plantillas**: *(see team documentation)*
 
 ---
 
@@ -578,6 +363,235 @@ ld-cli flag update --key growth-onboarding-checklist-v2 --rollout 10
 
 # Example using Unleash CLI
 unleash feature create --name growth-onboarding-checklist-v2
+```
+
+## Resources
+
+- **Templates**: *(see team documentation)*
+
+---
+
+# Skill: user-story
+> v1.2
+
+## When to Use
+
+- User asks to write or refine a user story
+- User wants acceptance criteria for a feature
+- Reviewing stories for completeness or ambiguity
+- Splitting epics into smaller deliverable stories
+
+## Brand Commitment — Caracol Televisión
+
+Caracol Televisión's brand is built on the veracity and reliability of the information it delivers to its audiences. Any story that surfaces user-facing information (news, alerts, editorial content, live data, notifications) must treat that trust as a first-class requirement, not an implementation detail.
+
+- Add an explicit acceptance criterion whenever a story publishes or displays informational content: e.g., "Source is verified/attributed" or "Content passes editorial review before publish."
+- Never mark a story "Ready" if it speeds up publishing at the cost of fact-checking, sourcing, or correction workflows.
+- When a story's informational impact is unclear, flag it for editorial review before writing acceptance criteria.
+
+## Critical Patterns
+
+### Story Format
+
+```
+As a [persona],
+I want to [action/goal],
+So that [business value/outcome].
+```
+
+### INVEST Checklist
+
+| Criterion | Question to Ask |
+|-----------|-----------------|
+| **I**ndependent | Can it be delivered without depending on another story? |
+| **N**egotiable | Is the HOW open to discussion? |
+| **V**aluable | Does it deliver value to user or business? |
+| **E**stimable | Can the team estimate effort? |
+| **S**mall | Fits in one sprint? |
+| **T**estable | Can acceptance criteria be verified? |
+
+### Acceptance Criteria Format (Gherkin)
+
+```gherkin
+Given [context/precondition]
+When [action performed]
+Then [expected outcome]
+```
+
+### Story Splitting Strategies
+
+| Pattern | When to Use |
+|---------|-------------|
+| By workflow step | Story has sequential steps A→B→C |
+| By user role | Different personas need different flows |
+| By data variation | Same action, different input types |
+| By CRUD operation | Create / Read / Update / Delete separately |
+| By happy/edge path | Core flow first, error handling after |
+
+### Red Flags — Stop and rewrite if you see these
+
+| Red Flag | Problem |
+|----------|---------|
+| "As a user..." | No specific persona — who exactly? |
+| "I want the system to..." | Output, not outcome — what does the user need to achieve? |
+| No acceptance criteria | Untestable — how does anyone know it's done? |
+| Story spans multiple sprints | Too big — split it |
+| "And also..." in the So That | Multiple values — split it |
+| Informational content with no verification/source criterion | Compromises Caracol's core brand promise: accurate, reliable information |
+
+## Code Examples
+
+### Well-formed story
+
+```markdown
+**US-042 — Filter products by category**
+
+As a **returning buyer**,
+I want to **filter the product catalog by category**,
+So that **I find relevant items faster without scrolling the entire catalog**.
+
+**Acceptance Criteria:**
+
+Given I'm on the catalog page
+When I select "Electronics" from the category filter
+Then only products tagged as "Electronics" appear in the list
+And the active filter is visually highlighted
+
+Given I'm on the catalog page with an active filter
+When I click "Clear filters"
+Then all products are displayed again
+And no filter is highlighted
+
+**Definition of Done:**
+- [ ] Filter persists on browser back navigation
+- [ ] Works on mobile viewport (375px+)
+- [ ] Analytics event fired on filter apply
+```
+
+### Poorly written story (DON'T)
+
+```markdown
+# Bad: No persona, no value, no testable criteria
+As a user, I want a better search, so that it's good.
+```
+
+## Commands
+
+```bash
+# No CLI commands — this skill is a writing workflow, not a code tool
+```
+
+## Resources
+
+- **Templates**: *(see team documentation)*
+
+---
+
+# Skill: product-discovery
+> v1.0
+
+## When to Use
+
+- Starting discovery on a new feature or problem space
+- Formulating hypotheses before building
+- Designing lean experiments to validate assumptions
+- Synthesizing research into actionable insights
+
+## Critical Patterns
+
+### Discovery vs. Delivery — Know Which Mode You're In
+
+| Discovery | Delivery |
+|-----------|----------|
+| Reduces uncertainty | Reduces scope |
+| Output: decisions | Output: working software |
+| Tools: interviews, prototypes, data | Tools: sprints, CI/CD |
+| "Should we build X?" | "How do we build X?" |
+
+### Problem Framing — Always Before Solutions
+
+```
+1. Problem Statement  → What is happening that shouldn't be?
+2. Who it affects     → Which persona / segment?
+3. Frequency          → How often? At what scale?
+4. Current workaround → How do users cope today?
+5. Cost of inaction   → What's the business impact of NOT solving it?
+```
+
+### Hypothesis Format
+
+```
+We believe that [doing/building X]
+for [persona]
+will result in [measurable outcome]
+because [assumption/rationale].
+
+We'll know this is true when [metric changes by Y in Z timeframe].
+```
+
+### Assumption Mapping — Risk vs. Knowability
+
+```
+High Risk + Unknown  → VALIDATE FIRST (riskiest assumptions)
+High Risk + Known    → Monitor & document
+Low Risk + Unknown   → Validate if cheap
+Low Risk + Known     → Build with confidence
+```
+
+### Experiment Types by Fidelity
+
+| Type | Cost | Signal Quality | Use When |
+|------|------|---------------|----------|
+| Concierge (manual) | Very low | High | Validating demand |
+| Wizard of Oz | Low | High | Validating UX before engineering |
+| Landing page | Low | Medium | Measuring interest |
+| Prototype (clickable) | Medium | High | Validating usability |
+| A/B test | High | Very high | Optimizing known flows |
+| MLP (Min Lovable Product) | High | Very high | Market validation at scale |
+
+## Code Examples
+
+### Discovery Brief Template
+
+```markdown
+## Discovery Brief — [Problem/Feature Name]
+
+### Problem Statement
+[What is happening that creates friction or lost value?]
+
+### Affected Persona
+[Name] — [Short description of who they are and their context]
+
+### Success Metric
+Primary: [Metric + target + timeframe]
+Secondary: [Optional metric]
+
+### Riskiest Assumption
+[The one thing that if wrong, invalidates the entire solution]
+
+### Experiment Plan
+Method: [Type of experiment]
+Duration: [Timeframe]
+Success threshold: [What result tells us to proceed?]
+Failure threshold: [What result tells us to pivot?]
+```
+
+### Hypothesis Example
+
+```markdown
+We believe that **adding a quick-apply option** (one-click from job listing)
+for **job seekers with a complete profile**
+will result in **a 20% increase in application completion rate**
+because users currently abandon the multi-step form due to friction.
+
+We'll know this is true when the 7-day application completion rate
+rises from 34% to 41% within 4 weeks of rollout.
+```
+
+## Commands
+
+```bash
+# No CLI commands — this skill is a research and design workflow
 ```
 
 ## Resources

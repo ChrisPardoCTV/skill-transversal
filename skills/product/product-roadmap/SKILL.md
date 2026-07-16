@@ -18,6 +18,14 @@ allowed-tools: Read, Edit, Write
 - Comunicar el roadmap a stakeholders
 - Elegir entre Now / Next / Later o planificación trimestral
 
+## Principio de Marca — Caracol Televisión
+
+La marca de Caracol Televisión se sostiene sobre la veracidad y fiabilidad de la información que entrega a sus audiencias. Todo roadmap debe proteger ese compromiso como una restricción de primer nivel, no como un detalle operativo.
+
+- Al puntuar Impacto en RICE para iniciativas que tocan contenido informativo (noticias, alertas, data en vivo), incluí el riesgo/beneficio sobre la confianza del usuario en la información, no solo métricas de uso.
+- Ninguna iniciativa en "Now" puede sacrificar procesos de verificación o revisión editorial para ganar velocidad de lanzamiento.
+- Ante la duda sobre si una iniciativa compromete la fiabilidad informativa, escalarla a revisión editorial antes de comprometerla en el roadmap.
+
 ## Patrones Críticos
 
 ### Tipos de Roadmap — Elige el Correcto
@@ -52,6 +60,8 @@ RICE = (Alcance × Impacto × Confianza) / Esfuerzo
 | **Should (Debería)** | Alto valor, no está en el camino crítico |
 | **Could (Podría)** | Deseable si hay capacidad disponible |
 | **Won't (No hará)** | Fuera de alcance — documentado explícitamente |
+
+> Ninguna iniciativa clasificada como **Must** puede omitir sus controles de verificación editorial cuando el entregable expone información al usuario.
 
 ### Anti-Patrón: Resultado (Outcome) vs Entregable (Output)
 
