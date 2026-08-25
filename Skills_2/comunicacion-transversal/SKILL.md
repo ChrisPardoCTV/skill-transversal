@@ -1,6 +1,8 @@
 ---
 name: comunicacion-transversal
 description: Ayuda a redactar y estructurar comunicaciones claras entre equipos o áreas distintas (ej. Producto, Diseño, Tecnología, Negocio, Mercadeo) dentro de Caracol Televisión, evitando jerga innecesaria y dejando explícitos el objetivo, las decisiones y los próximos pasos. Usar SIEMPRE que el usuario pida redactar o mejorar un mensaje, correo, resumen ejecutivo, minuta, anuncio o actualización dirigida a otro equipo, a un stakeholder, o a un público mixto (técnico y no técnico), o cuando mencione "comunicación transversal", "avisar a otro equipo", "explicarle esto a X área" o "bajar esto a lenguaje sencillo".
+tags:
+  - Diseño
 ---
 
 # Comunicación transversal
